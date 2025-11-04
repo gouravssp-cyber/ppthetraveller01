@@ -100,34 +100,17 @@ class PackageSectionResource extends Resource
                             ->icon('heroicon-o-map')
                             ->schema([
                                 Forms\Components\Section::make('Add Packages to Section')
-                                    ->description('Select packages to display in this section and arrange their order')
+                                    ->description('Select packages to display in this section')
                                     ->schema([
-                                        Forms\Components\Repeater::make('packages')
-                                            ->relationship('packages')
+                                        Forms\Components\Select::make('packages')
                                             ->label('Packages in this Section')
-                                            ->schema([
-                                                Forms\Components\Select::make('packages')
-                                                    ->label('Package')
-                                                    ->relationship('packages', 'title')
-                                                    ->required()
-                                                    ->searchable()
-                                                    ->preload()
-                                                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->title} ({$record->destination->name})")
-                                                    ->helperText('Select a published package'),
-
-                                                Forms\Components\TextInput::make('position')
-                                                    ->label('Position in Section')
-                                                    ->numeric()
-                                                    ->default(0)
-                                                    ->helperText('Lower numbers appear first'),
-                                            ])
-                                            ->columns(2)
-                                            ->columnSpanFull()
-                                            ->collapsible()
-                                            ->collapsed()
-                                            ->addActionLabel('Add Package to Section')
-                                            ->reorderable()
-                                            ->orderColumn('position'),
+                                            ->relationship('packages', 'title')
+                                            ->multiple()
+                                            ->searchable()
+                                            ->preload()
+                                            ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->title} ({$record->destination->name})")
+                                            ->helperText('Select packages to display in this section')
+                                            ->columnSpanFull(),
                                     ]),
                             ]),
 

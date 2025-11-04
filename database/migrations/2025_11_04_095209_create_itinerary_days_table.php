@@ -6,49 +6,37 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('itinerary_days', function (Blueprint $table) {
             $table->id();
 
-            // Foreign Keys
+            // Foreign key
             $table->foreignId('package_id')
                 ->constrained('packages')
                 ->onDelete('cascade');
-            
-            $table->foreignId('variant_id')
-                ->nullable()
-                ->constrained('package_variants')
-                ->onDelete('set null');
 
-            // Day Details
+            // Day details
             $table->integer('day_number');
             $table->string('day_title', 150)->nullable();
             $table->longText('day_description')->nullable();
 
-            // Media for this day
+            // Image
             $table->string('feature_image', 255)->nullable();
             $table->string('feature_image_alt', 200)->nullable();
 
-            // Sort Order
+            // Sort order
             $table->integer('sort_order')->default(0);
 
             $table->timestamps();
 
             // Indexes
             $table->index('package_id');
-            $table->index('variant_id');
             $table->index('day_number');
             $table->index('sort_order');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('itinerary_days');

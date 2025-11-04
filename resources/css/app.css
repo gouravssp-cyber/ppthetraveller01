@@ -1,8 +1,68 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+
+/* Custom Utilities */
+@layer components {
+    .btn-primary {
+        @apply px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition font-medium;
+    }
+
+    .btn-secondary {
+        @apply px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-medium;
+    }
+
+    .card {
+        @apply bg-white rounded-lg shadow-md hover:shadow-lg transition;
+    }
+
+    .section-title {
+        @apply text-3xl md:text-4xl font-bold text-gray-900;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-600;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Image Loading Optimization */
+img {
+    @apply transition-opacity duration-300;
+}
+
+img.lazy {
+    @apply opacity-0;
+}
+
+img.lazy.loaded {
+    @apply opacity-100;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-orange-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-orange-600;
 }

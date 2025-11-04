@@ -6,30 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
 
-            // Foreign Keys (both optional - can be package-specific or destination-specific)
+            // Foreign keys (both optional)
             $table->foreignId('package_id')
                 ->nullable()
                 ->constrained('packages')
                 ->onDelete('cascade');
-            
             $table->foreignId('destination_id')
                 ->nullable()
                 ->constrained('destinations')
                 ->onDelete('cascade');
 
-            // FAQ Content
+            // Content
             $table->string('question', 255);
             $table->longText('answer');
 
-            // Sort Order
+            // Sort order
             $table->integer('sort_order')->default(0);
 
             $table->timestamps();
@@ -41,9 +37,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('faqs');

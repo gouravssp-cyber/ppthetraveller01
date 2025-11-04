@@ -39,7 +39,7 @@ class PackageSection extends Model
     {
         return $this->belongsToMany(
             Package::class,
-            'package_sections',
+            'package_package_section',
             'package_section_id',
             'package_id'
         )

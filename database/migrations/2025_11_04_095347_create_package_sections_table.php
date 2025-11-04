@@ -16,18 +16,18 @@ return new class extends Migration
             $table->string('slug', 150)->unique();
             $table->text('description')->nullable();
 
-            // Positioning and visibility
+            // Image
+            $table->string('banner_image', 255)->nullable();
+            $table->string('banner_image_alt', 200)->nullable();
+
+            // Position & visibility
             $table->integer('position')->default(0);
             $table->enum('status', ['active', 'inactive'])->default('active');
 
-            // SEO fields
+            // SEO
             $table->string('meta_title', 150)->nullable();
             $table->string('meta_description', 160)->nullable();
-            $table->string('section_icon', 100)->nullable(); // for icon display
-
-            // Banner image
-            $table->string('banner_image', 255)->nullable();
-            $table->string('banner_image_alt', 200)->nullable();
+            $table->string('section_icon', 100)->nullable();
 
             $table->timestamps();
 
