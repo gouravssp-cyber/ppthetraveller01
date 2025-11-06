@@ -17,6 +17,8 @@ Route::get('/sections/{slug}', function ($slug) {
     return view('section', compact('section'));
 })->name('sections.show');
 
+// Booking form submission route
+Route::post('/booking-data-mail', [App\Http\Controllers\BookingController::class, 'sendBookingMail'])->name('booking.mail');
 
 
 Route::get('{slug}', function ($slug) {
