@@ -120,6 +120,22 @@ class Package extends Model
         return $query->where('migrated_from_legacy', true);
     }
 
+    public function scopeDomestic($query)
+    {
+        return $query->whereHas('tourType', function ($q) {
+            $q->where('name', 'like', '%Domestic%')
+              ->orWhere('slug', 'like', '%domestic%');
+        });
+    }
+
+    public function scopeInternational($query)
+    {
+        return $query->whereHas('tourType', function ($q) {
+            $q->where('name', 'like', '%International%')
+              ->orWhere('slug', 'like', '%international%');
+        });
+    }
+
     // Accessors
     public function getDiscountPercentageAttribute()
     {

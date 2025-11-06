@@ -19,6 +19,9 @@
 
 <body class="">
 
+    <!-- Navigation -->
+    <x-navigation />
+
     <!-- Main Content -->
     <main>
         @yield('content')

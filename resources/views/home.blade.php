@@ -6,8 +6,8 @@
 @section('content')
 
 <x-herosection />
+@livewire('homepage-sections')
 <x-ctaform />
 
-@endsection
 
- 
+@endsection

@@ -84,6 +84,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/domestic" class="text-white/70 hover:text-orange-primary transition-colors duration-300 text-sm inline-flex items-center group">
+                            <span class="w-0 group-hover:w-2 h-0.5 bg-orange-primary transition-all duration-300 mr-0 group-hover:mr-2"></span>Domestic Tours
+                        </a>
+                    </li>
+                    <li>
                         <a href="/international" class="text-white/70 hover:text-orange-primary transition-colors duration-300 text-sm inline-flex items-center group">
                             <span class="w-0 group-hover:w-2 h-0.5 bg-orange-primary transition-all duration-300 mr-0 group-hover:mr-2"></span>International Tours
                         </a>
