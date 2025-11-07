@@ -3,8 +3,37 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap'); */
 
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Custom Colors - Direct HSL values for Tailwind v4 */
+  --color-orange-primary: 27 98% 48%;
+  --color-yellow-accent: 40 96% 61%;
+  --color-title: 24 33% 5%;
+  --color-body-text: 0 0% 47%;
+  
+  /* Theme Colors */
+  --color-background: 28 22% 97%;
+  --color-foreground: 24 33% 5%;
+  --color-card: 0 0% 99%;
+  --color-card-foreground: 24 33% 5%;
+  --color-popover: 0 0% 99%;
+  --color-popover-foreground: 24 33% 5%;
+  --color-primary: 27 98% 48%;
+  --color-primary-foreground: 0 0% 100%;
+  --color-secondary: 40 96% 61%;
+  --color-secondary-foreground: 24 33% 5%;
+  --color-muted: 28 18% 94%;
+  --color-muted-foreground: 0 0% 47%;
+  --color-accent: 40 96% 61%;
+  --color-accent-foreground: 24 33% 5%;
+  --color-destructive: 0 84.2% 60.2%;
+  --color-destructive-foreground: 0 0% 100%;
+  --color-border: 0 0% 90%;
+  --color-input: 0 0% 90%;
+  --color-ring: 27 98% 48%;
+}
 
 @layer base {
   :root {
@@ -61,15 +90,17 @@
   }
 }
 
-
-
+.font-bold{
+  font-weight: 600!important;
+}
 
 @layer utilities {
+  /* Custom Theme Utilities - Using CSS Variables */
   .text-title {
     color: hsl(var(--title));
   }
 
-  .text-body {
+  .text-body-text {
     color: hsl(var(--body-text));
   }
 
@@ -87,6 +118,62 @@
 
   .text-yellow-accent {
     color: hsl(var(--yellow-accent));
+  }
+
+  /* Border color utilities */
+  .border-orange-primary {
+    border-color: hsl(var(--orange-primary));
+  }
+
+  .border-yellow-accent {
+    border-color: hsl(var(--yellow-accent));
+  }
+
+  /* Gradient utilities for custom colors */
+  .from-orange-primary {
+    --tw-gradient-from: hsl(var(--orange-primary)) var(--tw-gradient-from-position);
+    --tw-gradient-to: hsl(var(--orange-primary) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  .to-orange-primary {
+    --tw-gradient-to: hsl(var(--orange-primary)) var(--tw-gradient-to-position);
+  }
+
+  .to-orange-primary\/80 {
+    --tw-gradient-to: hsl(var(--orange-primary) / 0.8) var(--tw-gradient-to-position);
+  }
+
+  .to-orange-primary\/90 {
+    --tw-gradient-to: hsl(var(--orange-primary) / 0.9) var(--tw-gradient-to-position);
+  }
+
+  .from-yellow-accent {
+    --tw-gradient-from: hsl(var(--yellow-accent)) var(--tw-gradient-from-position);
+    --tw-gradient-to: hsl(var(--yellow-accent) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  .to-yellow-accent {
+    --tw-gradient-to: hsl(var(--yellow-accent)) var(--tw-gradient-to-position);
+  }
+
+  .to-yellow-accent\/80 {
+    --tw-gradient-to: hsl(var(--yellow-accent) / 0.8) var(--tw-gradient-to-position);
+  }
+
+  .to-yellow-accent\/90 {
+    --tw-gradient-to: hsl(var(--yellow-accent) / 0.9) var(--tw-gradient-to-position);
+  }
+
+  .via-yellow-accent {
+    --tw-gradient-to: hsl(var(--yellow-accent) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--yellow-accent)) var(--tw-gradient-via-position), var(--tw-gradient-to);
+  }
+
+  .via-orange-primary {
+    --tw-gradient-to: hsl(var(--orange-primary) / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), hsl(var(--orange-primary)) var(--tw-gradient-via-position), var(--tw-gradient-to);
   }
 
   /* Custom Color Mappings */
