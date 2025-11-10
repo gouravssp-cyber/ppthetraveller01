@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DestinationResource\Pages;
 use App\Models\Destination;
+use App\Models\TourType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -45,6 +46,14 @@ class DestinationResource extends Resource
                                     ->maxLength(150)
                                     ->disabled()
                                     ->dehydrated(),
+
+                                Forms\Components\Select::make('tour_type_id')
+                                    ->label('Tour Type')
+                                    ->options(TourType::active()->pluck('name', 'id'))
+                                    ->required()
+                                    ->searchable()
+                                    ->preload()
+                                    ->helperText('Select whether this is a Domestic or International destination'),
 
                                 Forms\Components\Textarea::make('description')
                                     ->label('Description')
@@ -104,6 +113,16 @@ class DestinationResource extends Resource
                     ->searchable()
                     ->copyable(),
 
+                Tables\Columns\TextColumn::make('tourType.name')
+                    ->label('Tour Type')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Domestic' => 'warning',
+                        'International' => 'info',
+                        default => 'gray',
+                    })
+                    ->sortable(),
+
                 Tables\Columns\IconColumn::make('featured')
                     ->label('Featured')
                     ->boolean(),
@@ -133,6 +152,12 @@ class DestinationResource extends Resource
                         'active' => 'Active',
                         'inactive' => 'Inactive',
                     ]),
+
+                Tables\Filters\SelectFilter::make('tour_type_id')
+                    ->label('Tour Type')
+                    ->options(TourType::active()->pluck('name', 'id'))
+                    ->searchable()
+                    ->preload(),
 
                 Tables\Filters\TernaryFilter::make('featured')
                     ->label('Featured Only'),

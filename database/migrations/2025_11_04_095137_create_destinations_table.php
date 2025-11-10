@@ -12,6 +12,12 @@ return new class extends Migration
             $table->id();
             $table->string('name', 150);
             $table->string('slug', 150)->unique();
+            
+            // Tour Type (International or Domestic)
+            $table->foreignId('tour_type_id')
+                ->nullable()
+                ->constrained('tour_types')
+                ->onDelete('set null');
 
             // SEO
             $table->string('meta_title', 150)->nullable();
@@ -26,6 +32,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('slug');
+            $table->index('tour_type_id');
             $table->index('status');
             $table->index('featured');
         });

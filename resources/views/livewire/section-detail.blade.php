@@ -1,33 +1,164 @@
 <div>
+<style>
+    /* Smooth transitions for all elements */
+    * {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Prevent transition on certain properties for better performance */
+    .no-transition {
+        transition: none !important;
+    }
+
+    /* Book Now button specific styling */
+    .book-now-btn {
+        position: relative;
+        overflow: hidden;
+        background-color: hsl(27 98% 48%);
+        color: white;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .book-now-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: hsl(27 98% 38%);
+        transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: -1;
+    }
+
+    .book-now-btn:hover::before {
+        left: 0;
+    }
+
+    .book-now-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(255, 107, 53, 0.35);
+        letter-spacing: 1px;
+    }
+
+    .book-now-btn:active {
+        transform: translateY(0);
+    }
+
+    /* Icon animation */
+    .icon-animate {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .group:hover .icon-animate {
+        color: hsl(40 96% 61%) !important;
+        transform: scale(1.1);
+    }
+
+    /* Smooth card transitions */
+    .card-smooth {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Category icon container animation */
+    .categories-container {
+        animation: slideInUp 0.5s ease-out forwards;
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Smooth overlay transitions */
+    .overlay-smooth {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Button ripple effect */
+    .ripple {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ripple::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .ripple:active::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Smooth text transitions */
+    .text-smooth {
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    /* Icon stagger animation */
+    .icon-stagger {
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .icon-stagger:nth-child(1) { transition-delay: 0.1s; }
+    .icon-stagger:nth-child(2) { transition-delay: 0.15s; }
+    .icon-stagger:nth-child(3) { transition-delay: 0.2s; }
+    .icon-stagger:nth-child(4) { transition-delay: 0.25s; }
+
+    .group:hover .icon-stagger {
+        animation: bounce 0.6s ease;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+</style>
+
     @if($section)
         <!-- Hero Section -->
         <section class="relative w-full min-h-[50vh] flex items-center justify-center overflow-hidden">
-            @if($section->banner_image)
-                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                    style="background-image: url('{{ $section->full_banner_image_url }}');">
-                    <div class="absolute inset-0 bg-gradient-to-br from-orange-primary/40 via-black/60 to-black/80"></div>
-                </div>
-            @else
-                <div class="absolute inset-0 bg-gradient-to-br from-orange-primary via-orange-primary/80 to-yellow-accent"></div>
-            @endif
-            <div class="relative z-10 text-center w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style="background-image: url('{{ isset($section->banner_image) && $section->banner_image ? ($section->full_banner_image_url ?? asset('storage/' . $section->banner_image)) : asset('images/hero-bg.jpg') }}');">
+                <div class="absolute inset-0" style="background: linear-gradient(135deg, hsla(27,98%,48%,0.40) 0%, hsla(0,0%,0%,0.60) 50%, hsla(0,0%,0%,0.80) 100%)"></div>
+            </div>
+            <div class="relative z-10 text-center w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 md:py-24">
                 <div class="mb-4 flex justify-center">
-                    @if($section->section_icon)
+                    @if(isset($section->section_icon) && $section->section_icon)
                         <span class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-2 rounded-full text-sm font-semibold">
                             <i class="{{ $section->section_icon }}"></i>
-                            {!! $section->title !!}
+                            {!! $section->title ?? $section->name !!}
                         </span>
                     @else
                         <span class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles">
-                                <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin">
+                                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
                             </svg>
-                            Featured Section
+                            {{ isset($section->section_label) ? $section->section_label : 'Destination' }}
                         </span>
                     @endif
                 </div>
                 <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                    <span class="text-white block mb-2">{{ $section->title }}</span>
+                    <span class="text-white block mb-2">{{ $section->title ?? $section->name }}</span>
                 </h1>
                 @if($section->description)
                     <div class="text-lg md:text-xl text-white/90 mb-8 font-light max-w-3xl mx-auto leading-relaxed">
@@ -52,103 +183,130 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($section->packages as $package)
-                            <a href="/{{ $package->slug }}" class="block group">
-                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-orange-primary/30 h-full">
-                                    <!-- Package Image with Hover Effect -->
-                                    <div class="relative h-64 overflow-hidden">
-                                        @if($package->banner_image)
-                                            <img src="{{ asset('storage/' . $package->banner_image) }}" 
-                                                 alt="{{ $package->banner_image_alt ?? $package->title }}"
-                                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                        @else
-                                            <div class="w-full h-full bg-gradient-to-br from-orange-primary/20 to-yellow-accent/20 flex items-center justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-primary/50">
-                                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0"></path>
-                                                    <circle cx="12" cy="10" r="3"></circle>
-                                                </svg>
+                            <div class="group relative h-[500px] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl card-smooth">
+                                <!-- Background Image with Zoom Effect -->
+                                <div class="absolute inset-0 bg-cover bg-center card-smooth group-hover:scale-110"
+                                     style="background-image: url('{{ asset('storage/' . ($package->banner_image ?? '')) }}');">
+                                    @if(!$package->banner_image)
+                                        <div class="w-full h-full flex items-center justify-center" style="background: linear-gradient(135deg, hsl(27 98% 48% / 0.2), hsl(40 96% 61% / 0.2))">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: hsl(27 98% 48% / 0.5)">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0"></path>
+                                                <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Base Gradient Overlay (Always visible) -->
+                                <div class="absolute inset-0 overlay-smooth" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.1) 100%)"></div>
+
+                                <!-- Enhanced Hover Overlay (Appears on hover) -->
+                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 overlay-smooth" style="background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.6) 100%)"></div>
+
+                                <!-- Default State - Title & Duration -->
+                                <div class="absolute inset-0 flex items-end p-6 opacity-100 group-hover:opacity-0 card-smooth">
+                                    <div class="w-full">
+                                        <h3 class="text-3xl font-bold text-white drop-shadow-lg mb-2 line-clamp-2">
+                                            {{ $package->title }}
+                                        </h3>
+                                        <div class="flex items-center justify-between gap-2 w-full mb-4">
+                                            <p class="text-sm" style="color: rgba(255,255,255,0.8)">{{ $package->duration_days }} Days / {{ $package->duration_nights }} Nights</p>
+                                            <span class="text-xl font-bold" style="color: hsl(40 96% 61%)">₹ {{ $package->price_start }}</span>
+                                        </div>
+                                        <div class="transform translate-y-4 group-hover:translate-y-0 card-smooth delay-300">
+                                            <a href="/{{ $package->slug }}" class="inline-block w-full no-transition">
+                                                <button class="w-full text-white px-5 py-3 rounded-xl font-semibold text-sm shadow-lg hover:shadow-2xl transform hover:scale-105 book-now-btn ripple">
+                                                    Book Now
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Hover State - Full Information -->
+                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 card-smooth pointer-events-none group-hover:pointer-events-auto">
+                                    <div class="absolute inset-0 flex flex-col p-6 overflow-hidden">
+
+                                        <!-- Scrollable Content Area -->
+                                        <div class="flex-1 overflow-y-auto overflow-x-hidden pr-2 space-y-4" style="scrollbar-width: thin; scrollbar-color: hsl(27 98% 48%) transparent;">
+                                            
+                                            <!-- Title -->
+                                            <h3 class="text-2xl font-bold text-white transform translate-y-2 group-hover:translate-y-0 card-smooth delay-75">
+                                                {{ $package->title }}
+                                            </h3>
+
+                                            <!-- Description -->
+                                            <p class="text-sm leading-relaxed transform translate-y-2 group-hover:translate-y-0 card-smooth delay-100" style="color: rgba(255,255,255,0.9)">
+                                                {!! Str::limit(strip_tags($package->full_description ?? ''), 150) !!}
+                                            </p>
+
+                                            <!-- Duration and Price -->
+                                            <div class="flex items-center gap-4 flex-wrap pt-1 transform translate-y-2 group-hover:translate-y-0 card-smooth delay-150">
+                                                <div class="flex items-center gap-2" style="color: rgba(255,255,255,0.9)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <circle cx="12" cy="12" r="10"></circle>
+                                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                                    </svg>
+                                                    <span class="text-sm">{{ $package->duration_days }} Days / {{ $package->duration_nights }} Nights</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xl font-bold" style="color: hsl(40 96% 61%)">₹{{ number_format($package->price_start) }}</span>
+                                                </div>
                                             </div>
-                                        @endif
-                                        
-                                        <!-- Hover Overlay with Summary -->
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                                            <div class="text-white">
-                                                <p class="text-sm font-medium mb-2 line-clamp-3">
-                                                    {{ Str::limit($package->summary ?? $package->full_description ?? 'Explore this amazing destination', 150) }}
-                                                </p>
-                                                <div class="flex items-center gap-3 text-xs opacity-90">
-                                                    <span class="flex items-center gap-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar">
-                                                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                        </svg>
-                                                        {{ $package->duration_days }} Days
-                                                    </span>
-                                                    <span class="flex items-center gap-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin">
-                                                            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                                                            <circle cx="12" cy="10" r="3"></circle>
-                                                        </svg>
-                                                        {{ $package->destination->name }}
-                                                    </span>
+
+                                            <!-- Highlights -->
+                                            @if($package->highlights && count($package->highlights) > 0)
+                                                <ul class="space-y-2 pt-2">
+                                                    @foreach(array_slice($package->highlights, 0, 3) as $index => $highlight)
+                                                        <li class="text-xs flex items-start gap-2 transform translate-x-[-10px] group-hover:translate-x-0 card-smooth" style="color: rgba(255,255,255,0.8); transition-delay: {{ 200 + ($index * 50) }}ms">
+                                                            <span class="mt-0.5 icon-animate" style="color: hsl(40 96% 61%)">✓</span>
+                                                            <span class="flex-1">{{ $highlight }}</span>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+
+                                            <!-- CATEGORY ICONS SECTION -->
+                                            <div class="pt-3 border-t border-white/20 categories-container">
+                                                <div class="grid grid-cols-2 gap-4">
+                                                    <!-- Meals -->
+                                                    <div class="flex items-center gap-3 text-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-300" style="color: rgba(255,255,255,0.9);">
+                                                        <i class="fas fa-utensils icon-animate text-[22px]" style="color: hsl(40 96% 61%); min-width: 26px; text-align: center; filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.3));"></i>
+                                                        <span class="font-semibold tracking-wide">Meals</span>
+                                                    </div>
+
+                                                    <!-- Transport -->
+                                                    <div class="flex items-center gap-3 text-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-300" style="color: rgba(255,255,255,0.9);">
+                                                        <i class="fas fa-bus icon-animate text-[22px]" style="color: hsl(40 96% 61%); min-width: 26px; text-align: center; filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.3));"></i>
+                                                        <span class="font-semibold tracking-wide">Transport</span>
+                                                    </div>
+
+                                                    <!-- Hotel -->
+                                                    <div class="flex items-center gap-3 text-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-300" style="color: rgba(255,255,255,0.9);">
+                                                        <i class="fas fa-hotel icon-animate text-[22px]" style="color: hsl(40 96% 61%); min-width: 26px; text-align: center; filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.3));"></i>
+                                                        <span class="font-semibold tracking-wide">Hotel</span>
+                                                    </div>
+
+                                                    <!-- Sightseeing -->
+                                                    <div class="flex items-center gap-3 text-sm transform translate-y-2 group-hover:translate-y-0 transition-all duration-300" style="color: rgba(255,255,255,0.9);">
+                                                        <i class="fas fa-binoculars icon-animate text-[22px]" style="color: hsl(40 96% 61%); min-width: 26px; text-align: center; filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.3));"></i>
+                                                        <span class="font-semibold tracking-wide">Sightseeing</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- Badges -->
-                                        <div class="absolute top-4 left-4">
-                                            <span class="bg-orange-primary text-white px-3 py-1 rounded-full text-xs font-semibold">
-                                                {{ $package->tourType->name ?? 'Tour' }}
-                                            </span>
-                                        </div>
-                                        @if($package->price_compare_at && $package->price_start < $package->price_compare_at)
-                                            <div class="absolute top-4 right-4">
-                                                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                                                    {{ round((($package->price_compare_at - $package->price_start) / $package->price_compare_at) * 100) }}% OFF
-                                                </span>
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                    <!-- Package Content -->
-                                    <div class="p-6">
-                                        <h3 class="text-xl font-bold text-title mb-2 group-hover:text-orange-primary transition-colors line-clamp-2">
-                                            {{ $package->title }}
-                                        </h3>
-                                        <div class="flex items-center gap-4 text-sm text-body-text mb-4">
-                                            <div class="flex items-center gap-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar">
-                                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                </svg>
-                                                <span>{{ $package->duration_days }} Days</span>
-                                            </div>
-                                            <div class="flex items-center gap-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin">
-                                                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                                                    <circle cx="12" cy="10" r="3"></circle>
-                                                </svg>
-                                                <span>{{ $package->destination->name }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                                            <div>
-                                                @if($package->price_compare_at && $package->price_start < $package->price_compare_at)
-                                                    <p class="text-sm text-body-text line-through">₹{{ number_format($package->price_compare_at) }}</p>
-                                                @endif
-                                                <p class="text-2xl font-bold text-orange-primary">₹{{ number_format($package->price_start) }}</p>
-                                                <p class="text-xs text-body-text">per person</p>
-                                            </div>
-                                            <button class="bg-orange-primary hover:bg-orange-primary/90 text-white px-6 py-2 rounded-lg font-semibold transition-all">
-                                                View Details
-                                            </button>
+                                        <!-- CTA Button - Fixed at Bottom -->
+                                        <div class="pt-4 mt-auto transform translate-y-4 group-hover:translate-y-0 card-smooth delay-300">
+                                            <a href="/{{ $package->slug }}" class="inline-block w-full no-transition">
+                                                <button class="w-full text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-lg hover:shadow-2xl book-now-btn ripple">
+                                                    Book Now
+                                                </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         @endforeach
                     </div>
                 </div>

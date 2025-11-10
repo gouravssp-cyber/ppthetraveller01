@@ -1,4 +1,4 @@
-<footer class="bg-gradient-to-b from-slate-900 to-black text-white mt-20">
+<footer class=" text-white mt-20" style="background: linear-gradient(180deg, #f37002b8 -314%, #000000 100%)">
     <!-- Newsletter Section -->
     <div class="border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 md:px-8 py-16">
@@ -195,7 +195,7 @@
                 <div class="flex gap-6 text-sm">
                     <a href="/privacy-policy" class="text-white/60 hover:text-orange-primary transition-colors">Privacy Policy</a>
                     <a href="/terms-of-service" class="text-white/60 hover:text-orange-primary transition-colors">Terms of Service</a>
-                    <a href="/cookie-policy" class="text-white/60 hover:text-orange-primary transition-colors">Cookie Policy</a>
+                    <a href="/refund-policy" class="text-white/60 hover:text-orange-primary transition-colors">Refund Policy</a>
                 </div>
             </div>
         </div>

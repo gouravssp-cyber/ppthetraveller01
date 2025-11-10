@@ -18,12 +18,10 @@ AOS.init({
     offset: 100,
 });
 
-// Initialize Lenis
 const lenis = new Lenis({
     autoRaf: true,
 });
 
-// Start Alpine.js
 Alpine.start();
 
 document.addEventListener("alpine:init", () => {
@@ -64,5 +62,10 @@ function initGallerySwipers() {
     });
 }
 
+
+
+
 // Log app ready
 console.log("Frontend initialized - Livewire, Tailwind, Vite");
+
+

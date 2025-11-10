@@ -6,7 +6,7 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden">
+<section class="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden py-24">
     <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style="background-image: url('{{ asset('images/hero-bg.jpg') }}');">
         <div class="absolute inset-0 bg-gradient-to-br from-orange-primary/30 via-black/50 to-black/70"></div>
@@ -24,7 +24,7 @@
         </div>
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
             <span class="text-white block mb-2">Explore the</span>
-            <span class="bg-gradient-to-r from-yellow-accent via-orange-primary to-yellow-accent bg-clip-text text-transparent">World</span>
+            <span class="bg-yellow-accent text-transparent">World</span>
         </h1>
         <p class="text-lg md:text-xl text-white/90 mb-8 font-light max-w-3xl mx-auto leading-relaxed">
             Discover curated international tour packages to amazing destinations around the globe

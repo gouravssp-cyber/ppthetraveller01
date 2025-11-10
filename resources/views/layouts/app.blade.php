@@ -12,7 +12,12 @@
     <meta property="og:description" content="@yield('og_description', 'Best tour packages')">
     @yield('meta_tags')
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
     <!-- Styles -->
+    @stack('styles')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>

@@ -23,13 +23,16 @@ class AppServiceProvider extends ServiceProvider
     {
         // Share destination data with navigation component
         View::composer('components.navigation', function ($view) {
-            $domesticDestinations = Destination::whereHas('packages', function ($query) {
-                $query->published()->domestic();
-            })->get();
+            // Get destinations directly by tour type
+            $domesticDestinations = Destination::active()
+                ->domestic()
+                ->orderBy('name')
+                ->get();
             
-            $internationalDestinations = Destination::whereHas('packages', function ($query) {
-                $query->published()->international();
-            })->get();
+            $internationalDestinations = Destination::active()
+                ->international()
+                ->orderBy('name')
+                ->get();
             
             $view->with([
                 'domesticDestinations' => $domesticDestinations,

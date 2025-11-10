@@ -1,5 +1,6 @@
  <section
-     class="py-24 px-4 md:px-8 bg-gradient-to-b from-white to-orange-primary/5">
+     class="py-24 px-4 md:px-8 bg-gradient-to-b from-white to-orange-primary/5"     
+     >
      <div class="max-w-7xl mx-auto">
          <div
              class="relative rounded-3xl overflow-hidden shadow-2xl">
@@ -9,7 +10,8 @@
                      alt="Travel"
                      class="w-full h-full object-cover" />
                  <div
-                     class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/90 to-slate-900/95"></div>
+                     class="absolute inset-0 "
+                     style="background: linear-gradient(180deg, #f37002b8 -314%, #000000 100%)"></div>
              </div>
              <div
                  class="absolute top-0 right-0 w-96 h-96 bg-orange-primary/30 rounded-full blur-3xl"

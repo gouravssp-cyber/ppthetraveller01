@@ -1,5 +1,8 @@
 @php
     $section = \App\Models\PackageSection::where('slug', $slug)->active()->first();
+    if(!$section) {
+        $section = \App\Models\Destination::where('slug', $slug)->active()->first();
+    }
     $pageTitle = $section ? ($section->meta_title ?? $section->title ?? 'Section') : 'Section';
     $pageDescription = $section ? ($section->meta_description ?? $section->description ?? 'Explore our tour packages') : 'Explore our tour packages';
 @endphp

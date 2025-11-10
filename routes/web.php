@@ -10,6 +10,23 @@ Route::get('/', function () {
 })->name('home');
 
 
+// Privacy Policy
+// Terms of Service
+// Cookie Policy
+
+Route::get('/privacy-policy', function () {
+    return view('footerpages.privacy-policy');
+})->name('privacy-policy');
+
+Route::get('/terms-of-service', function () {
+    return view('footerpages.terms-of-service');
+})->name('terms-of-service');
+
+Route::get('/refund-policy', function () {
+    return view('footerpages.refund-policy');
+})->name('refund-policy');
+
+
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -22,6 +39,7 @@ Route::get('/about', function () {
 Route::get('/section/{slug}', function ($slug) {
     return view('section', ['slug' => $slug]);
 })->name('sections.show');
+
 
 Route::get('/domestic', function () {
     $packages = Package::published()
@@ -59,6 +77,8 @@ Route::get('/international', function () {
 
 // Booking form submission route
 Route::post('/booking-data-mail', [App\Http\Controllers\BookingController::class, 'sendBookingMail'])->name('booking.mail');
+
+
 
 
 Route::get('{slug}', function ($slug) {
