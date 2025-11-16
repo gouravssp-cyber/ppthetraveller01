@@ -1,17 +1,11 @@
-@extends('layouts.app')
-
-@section('title', 'Home')
-@section('meta_description', 'Home')
-
-@section('content')
-
-<x-herosection />
-@livewire('homepage-sections')
-<x-ctaform />
-
-
-
-
-
-
-@endsection
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
