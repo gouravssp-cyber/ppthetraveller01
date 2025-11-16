@@ -14,6 +14,7 @@ class Section extends Model
     public const TYPE_CAROUSEL = 'carousel';
     public const TYPE_BANNER_CAROUSEL = 'banner_carousel';
     public const TYPE_BANNER = 'banner';
+    public const TYPE_BENTO = 'bento';
 
     public static function getTypes(): array
     {
@@ -22,6 +23,7 @@ class Section extends Model
             self::TYPE_CAROUSEL => 'Carousel',
             self::TYPE_BANNER_CAROUSEL => 'Banner Carousel',
             self::TYPE_BANNER => 'Banner',
+            self::TYPE_BENTO => 'Bento Grid',
         ];
     }
 
@@ -46,6 +48,31 @@ class Section extends Model
         return $this->belongsToMany(Product::class, 'product_section')
             ->withTimestamps()
             ->orderByPivot('display_order');
+    }
+
+    /**
+     * Load products for this section (limit based on section type)
+     */
+    public function loadProducts()
+    {
+        $limit = match($this->section_type) {
+            self::TYPE_BANNER => 1,
+            self::TYPE_BANNER_CAROUSEL => 3,
+            self::TYPE_CAROUSEL => 8,
+            self::TYPE_BENTO => 6,
+            default => 12,
+        };
+
+        $this->setRelation('loadedProducts', $this->products()->limit($limit)->get());
+        return $this;
+    }
+
+    /**
+     * Get loaded products
+     */
+    public function loadedProducts()
+    {
+        return $this->loadedProducts ?? collect();
     }
 }
 

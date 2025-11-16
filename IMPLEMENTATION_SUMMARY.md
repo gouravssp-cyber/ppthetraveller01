@@ -10,7 +10,7 @@
 - ✅ Relationships: parent, children, products
 
 #### Section Model (`app/Models/Section.php`)
-- ✅ Section types: grid, carousel, banner_carousel, banner
+- ✅ Section types: grid, carousel, banner_carousel, banner, bento
 - ✅ Display order management
 - ✅ Active/inactive status
 - ✅ Relationship: products (many-to-many)
@@ -49,7 +49,7 @@
 
 #### SectionResource (`app/Filament/Resources/SectionResource.php`)
 **Features:**
-- Section type selection (Grid, Carousel, Banner Carousel, Banner)
+- Section type selection (Grid, Carousel, Banner Carousel, Banner, Bento Grid)
 - Display order management
 - Active/inactive toggle
 - Product count display

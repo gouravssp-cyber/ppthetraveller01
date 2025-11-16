@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('section_name');
-            $table->enum('section_type', ['grid', 'carousel', 'banner_carousel', 'banner'])->default('grid');
+            $table->enum('section_type', ['grid', 'carousel', 'banner_carousel', 'banner', 'bento'])->default('grid');
             $table->text('description')->nullable();
             $table->integer('display_order')->default(0);
             $table->boolean('is_active')->default(true);

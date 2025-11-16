@@ -23,7 +23,7 @@
                         @foreach($categories as $category)
                             <label class="flex items-center space-x-2 cursor-pointer p-2 rounded transition-colors" 
                                    style="color: var(--color-text);"
-                                   onmouseover="this.style.backgroundColor='var(--color-cream-light)'"
+                                   onmouseover="this.style.backgroundColor='var(--color-accent)'"
                                    onmouseout="this.style.backgroundColor='transparent'">
                                 <input 
                                     type="checkbox" 
@@ -45,7 +45,7 @@
                     <div class="space-y-2 max-h-48 overflow-y-auto">
                         @foreach($brands as $brand)
                             <label class="flex items-center space-x-2 cursor-pointer p-2 rounded transition-colors"
-                                   onmouseover="this.style.backgroundColor='var(--color-cream-light)'"
+                                   onmouseover="this.style.backgroundColor='var(--color-accent)'"
                                    onmouseout="this.style.backgroundColor='transparent'">
                                 <input 
                                     type="checkbox" 
@@ -153,6 +153,12 @@
 
         <!-- Products Grid -->
         <main class="flex-1">
+            <!-- Section Header -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl font-bold mb-4" style="color: var(--color-primary-dark);">{{ $section->section_name }}</h1>
+                <p class="text-lg" style="color: var(--color-primary-dark);">{{ $section->description }}</p>
+            </div>
+
             <!-- Sort and Results Count -->
             <div class="rounded-lg shadow-md p-4 mb-6 flex flex-col sm:flex-row justify-between items-center gap-4" style="background-color: var(--color-white);">
                 <div style="color: var(--color-text);">
@@ -253,7 +259,7 @@
                                 <div 
                                     class="block w-full text-center py-2 rounded-md font-medium transition-colors"
                                     style="background-color: var(--color-primary); color: var(--color-white);"
-                                    onmouseover="this.style.backgroundColor='var(--color-primary-hover)'"
+                                    onmouseover="this.style.backgroundColor='var(--color-primary-dark)'"
                                     onmouseout="this.style.backgroundColor='var(--color-primary)'"
                                 >
                                     View Details
@@ -278,7 +284,7 @@
                         wire:click="clearFilters" 
                         class="inline-block px-6 py-2 rounded-md transition-colors font-medium"
                         style="background-color: var(--color-primary); color: var(--color-white);"
-                        onmouseover="this.style.backgroundColor='var(--color-primary-hover)'"
+                        onmouseover="this.style.backgroundColor='var(--color-primary-dark)'"
                         onmouseout="this.style.backgroundColor='var(--color-primary)'"
                     >
                         Clear All Filters
