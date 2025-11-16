@@ -19,13 +19,21 @@ class Product extends Model
         'product_title',
         'face_image',
         'category_id',
+        'brand',
+        'color',
+        'sizes',
+        'min_price',
+        'max_price',
         'variants',
         'is_active',
     ];
 
     protected $casts = [
         'variants' => 'array',
+        'sizes' => 'array',
         'is_active' => 'boolean',
+        'min_price' => 'decimal:2',
+        'max_price' => 'decimal:2',
     ];
 
     /**
