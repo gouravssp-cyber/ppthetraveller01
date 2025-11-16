@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Destination extends Model
@@ -16,6 +17,7 @@ class Destination extends Model
     protected $fillable = [
         'name',
         'slug',
+        'tour_type_id',
         'meta_title',
         'meta_description',
         'h1_title',
@@ -30,6 +32,14 @@ class Destination extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * Get the tour type this destination belongs to
+     */
+    public function tourType(): BelongsTo
+    {
+        return $this->belongsTo(TourType::class);
+    }
 
     /**
      * Get all packages for this destination
@@ -94,6 +104,28 @@ class Destination extends Model
     public function scopeFeatured($query)
     {
         return $query->where('featured', true);
+    }
+
+    /**
+     * Get domestic destinations
+     */
+    public function scopeDomestic($query)
+    {
+        return $query->whereHas('tourType', function ($q) {
+            $q->where('name', 'like', '%Domestic%')
+              ->orWhere('slug', 'like', '%domestic%');
+        });
+    }
+
+    /**
+     * Get international destinations
+     */
+    public function scopeInternational($query)
+    {
+        return $query->whereHas('tourType', function ($q) {
+            $q->where('name', 'like', '%International%')
+              ->orWhere('slug', 'like', '%international%');
+        });
     }
 
     /**
